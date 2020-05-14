@@ -103,7 +103,7 @@
                 let mileage = $('#mileage').val();
                 $.ajax({
                     type: 'POST',
-                    url: 'https://car4sale.herokuapp.com/cars/add',
+                    url: '/cars/add',
                     dataType: "text",
                     data: {
                         name: name,
@@ -146,7 +146,7 @@
             let formData = new FormData();
             formData.append("image", image);
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://car4sale.herokuapp.com/cars/upload");
+            xhr.open("POST", "/cars/upload");
             xhr.send(formData);
             xhr.onload = function() {
                 $('#selectedImage').attr('value', this.responseText);
