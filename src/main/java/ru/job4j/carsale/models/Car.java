@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 2.0
- * @since 05.04.2020
+ * @version 3.0
+ * @since 15.05.2020
  */
 
 @Entity(name = "Car")
@@ -71,11 +71,11 @@ public class Car {
     }
 
     public LocalDateTime getCreateDateTime() {
-        return createDateTime;
+        return createDateTime.plusHours(3);
     }
 
     public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime.plusHours(3);
+        this.createDateTime = createDateTime;
     }
 
     public String getStatus() {
