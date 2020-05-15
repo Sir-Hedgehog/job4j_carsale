@@ -218,13 +218,12 @@
                     <webXml>target/job4j_carsale-1.0/WEB-INF/web.xml</webXml>
                     <webResources>
                         <resource>
-                            <directory>src/main/webapp</directory>
+                            <directory>src/main/webapp/</directory>
                             <filtering>true</filtering>
                         </resource>
                     </webResources>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
