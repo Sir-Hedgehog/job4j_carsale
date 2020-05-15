@@ -75,7 +75,7 @@ public class Car {
     }
 
     public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
+        this.createDateTime = createDateTime.plusHours(3);
     }
 
     public String getStatus() {
