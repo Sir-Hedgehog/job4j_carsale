@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0">
+<!-- <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
-         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
+     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4"> -->
     <servlet>
         <servlet-name>CarListServlet</servlet-name>
         <servlet-class>ru.job4j.carsale.controllers.CarListServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
+        <multipart-config>
+            <location>/temp/autos/</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>AddCarServlet</servlet-name>
@@ -20,10 +27,22 @@
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>ru.job4j.carsale.controllers.UploadServlet</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>ru.job4j.carsale.controllers.DownloadServlet</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
     </servlet>
 
     <servlet-mapping>
