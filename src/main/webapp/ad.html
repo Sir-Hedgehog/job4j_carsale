@@ -146,7 +146,7 @@
             let formData = new FormData();
             formData.append("image", image);
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "/upload");
+            xhr.open("GET", "/upload");
             xhr.send(formData);
             xhr.onload = function() {
                 $('#selectedImage').attr('value', this.responseText);
