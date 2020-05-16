@@ -29,7 +29,7 @@ public class UploadServlet extends HttpServlet {
      */
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         String nameOfFile = "";

@@ -22,7 +22,7 @@ public class DownloadServlet extends HttpServlet {
      */
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("name=" + name);

@@ -102,7 +102,7 @@
                 let price = $('#price').val();
                 let mileage = $('#mileage').val();
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
                     url: '/add',
                     dataType: "text",
                     data: {
@@ -146,7 +146,7 @@
             let formData = new FormData();
             formData.append("image", image);
             let xhr = new XMLHttpRequest();
-            xhr.open("GET", "/upload");
+            xhr.open("POST", "/upload");
             xhr.send(formData);
             xhr.onload = function() {
                 $('#selectedImage').attr('value', this.responseText);
