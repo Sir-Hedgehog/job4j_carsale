@@ -26,7 +26,7 @@ public class DownloadServlet extends HttpServlet {
         String name = request.getParameter("name");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("name=" + name);
-        response.setContentType("image/*");
+        response.setContentType("image/jpg");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
         File file = new File("/bin/autos" + File.separator + name);
         try (FileInputStream in = new FileInputStream(file)) {
