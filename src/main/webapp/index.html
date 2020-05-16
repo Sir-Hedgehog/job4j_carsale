@@ -103,7 +103,7 @@
                     time.find('option#startOptionForTime').remove();
                 }
                 $.ajax({
-                    type: 'POST',
+                    type: 'GET',
                     url: '/base',
                     data: { firm : firm.val(), photo : photo.val(), time : time.val() },
                     dataType: "json",
