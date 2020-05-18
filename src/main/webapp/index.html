@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js" crossorigin="anonymous"></script>
         <title>Продажа авто</title>
         <style>
             html {
@@ -121,7 +121,7 @@
                             }
                             section.append('<div class="tableRow">' +
                                            '<p class="image">' +
-                                           '<img id="image' + counter++ + '" src="https://github.com/Sir-Hedgehog/job4j_carsale/tree/master/src/main/resources/images/' + data[0] + '" width="450px" height="300px"/>' +
+                                           '<img id="image' + counter++ + '" src="https://github.com/Sir-Hedgehog/job4j_carsale/tree/master/src/main/resources/images/' + data[0] + ' " width="450px" height="300px" crossorigin="anonymous"/>' +
                                            //'<img id="image' + counter++ + '" src="/download?name=' + data[0] + '" width="450px" height="300px"/>' +
                                            '</p>' +
                                            '<div class="description">' +

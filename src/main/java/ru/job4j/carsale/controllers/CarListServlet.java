@@ -34,7 +34,6 @@ public class CarListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Set-Cookie", "HttpOnly; Secure; SameSite = Strict");
         List<List<String>> result = new ArrayList<>();
         String firm = request.getParameter("firm");
         String photo = request.getParameter("photo");
