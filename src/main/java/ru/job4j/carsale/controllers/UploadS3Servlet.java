@@ -6,6 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class UploadS3Servlet extends HttpServlet {
@@ -51,7 +53,7 @@ public class UploadS3Servlet extends HttpServlet {
 
         try {
             List<FileItem> items = upload.parseRequest(request);
-            File folder = new File("https://cloud-cube-eu.s3.amazonaws.com/t7qeqayxsytc/public/temp/autos/");
+            File folder = new File("https://cloud-cube-eu.s3.amazonaws.com/t7qeqayxsytc/public");
             if (!folder.exists()) {
                 folder.mkdirs();
             }
@@ -61,10 +63,12 @@ public class UploadS3Servlet extends HttpServlet {
 
             for (FileItem item : items) {
                 if (!item.isFormField()) {
+                    ObjectMetadata om = new ObjectMetadata();
+                    om.setContentLength(item.getSize());
                     nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
-                    File targetFile = new File(folder + nameOfFile);
+                    File targetFile = new File(folder + File.separator + nameOfFile);
                     try {
-                        s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, targetFile));
+                        s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, item.getInputStream(), om));
                     } catch (AmazonServiceException ase) {
                         LOG.error("Error:" + ase.getMessage());
                     }
