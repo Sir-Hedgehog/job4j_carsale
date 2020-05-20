@@ -51,7 +51,7 @@ public class UploadS3Servlet extends HttpServlet {
 
         try {
             List<FileItem> items = upload.parseRequest(request);
-            File folder = new File("/temp/autos/");
+            File folder = new File("/public/temp/autos/");
             if (!folder.exists()) {
                 folder.mkdirs();
             }
