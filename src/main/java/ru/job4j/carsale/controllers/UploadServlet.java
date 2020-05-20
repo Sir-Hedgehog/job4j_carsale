@@ -40,7 +40,7 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(request);
-            File folder = new File("/public/");
+            File folder = new File("/temp/autos/");
             if (!folder.exists()) {
                 folder.mkdirs();
             }

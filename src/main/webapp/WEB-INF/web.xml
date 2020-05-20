@@ -14,8 +14,8 @@
         <servlet-class>ru.job4j.carsale.controllers.UpdateStatusServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UploadServlet</servlet-name>
-        <servlet-class>ru.job4j.carsale.controllers.UploadServlet</servlet-class>
+        <servlet-name>UploadS3Servlet</servlet-name>
+        <servlet-class>ru.job4j.carsale.controllers.UploadS3Servlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DownloadServlet</servlet-name>
@@ -35,7 +35,7 @@
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UploadServlet</servlet-name>
+        <servlet-name>UploadS3Servlet</servlet-name>
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
