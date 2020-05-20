@@ -62,7 +62,7 @@ public class UploadS3Servlet extends HttpServlet {
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
-                    File targetFile = new File(folder + File.separator + nameOfFile);
+                    File targetFile = new File(folder + nameOfFile);
                     try {
                         s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, targetFile));
                     } catch (AmazonServiceException ase) {
