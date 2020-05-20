@@ -3,6 +3,7 @@ package ru.job4j.carsale.controllers;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -21,7 +22,9 @@ import java.util.List;
 public class UploadS3Servlet extends HttpServlet {
     private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHQ22GGJXS";
     private static final String AMAZON_SECRET_KEY = "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";
+    private static final String REGION = "eu-west-1";
     private static final String S3_BUCKET_NAME = "cloud-cube-eu";
+
     private static final Logger LOG = LoggerFactory.getLogger(UploadS3Servlet.class);
 
     @Override
@@ -35,15 +38,27 @@ public class UploadS3Servlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         String nameOfFile = "";
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+
+        LOG.info("awsCredentials: " + awsCredentials);
+
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                .withRegion(Regions.fromName(REGION))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
+
+        LOG.info("AU");
+        LOG.info("s3Client: " + s3Client);
+
         try {
             List<FileItem> items = upload.parseRequest(request);
-            File folder = new File("/temp/autos/");
+            File folder = new File("/public/autos/");
             if (!folder.exists()) {
                 folder.mkdirs();
             }
+
+            LOG.info("AU");
+            LOG.info("s3Client: " + s3Client);
+
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
@@ -55,6 +70,10 @@ public class UploadS3Servlet extends HttpServlet {
                     }
                 }
             }
+
+            LOG.info("AU");
+            LOG.info("s3Client: " + s3Client);
+
         } catch (Exception ex) {
             LOG.error("error: " + ex.getMessage());
         }
