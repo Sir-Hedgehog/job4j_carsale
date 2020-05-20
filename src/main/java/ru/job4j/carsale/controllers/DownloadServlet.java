@@ -28,7 +28,7 @@ public class DownloadServlet extends HttpServlet {
         response.setContentType("name=" + name);
         response.setContentType("image/jpg");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
-        File file = new File("/public/temp/autos" + File.separator + name);
+        File file = new File("https://cloud-cube-eu.s3.amazonaws.com/t7qeqayxsytc/public/temp/autos" + File.separator + name);
         try (FileInputStream in = new FileInputStream(file)) {
             response.getOutputStream().write(in.readAllBytes());
         }
