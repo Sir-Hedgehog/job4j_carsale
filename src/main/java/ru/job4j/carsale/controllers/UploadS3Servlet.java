@@ -47,11 +47,13 @@ public class UploadS3Servlet extends HttpServlet {
 
         String nameOfFile = "";
 
+        AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
+
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+        /*AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.EU_WEST_1)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .build();
+                .build();*/
 
         LOG.info("1");
         LOG.info("s3Client: " + s3Client);
