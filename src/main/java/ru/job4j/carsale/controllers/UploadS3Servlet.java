@@ -27,8 +27,8 @@ public class UploadS3Servlet extends HttpServlet {
     private static final int THRESHOLD_SIZE = 1024 * 1024 * 3;  // 3MB
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 140; // 140MB
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 150; // 150MB
-    //private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHWIWJHZGF";
-    //private static final String AMAZON_SECRET_KEY = "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";
+    private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHWIWJHZGF";
+    private static final String AMAZON_SECRET_KEY = "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";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -47,13 +47,13 @@ public class UploadS3Servlet extends HttpServlet {
 
         String nameOfFile = "";
 
-        AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
+        //AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
 
-        //BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
-        /*AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.EU_WEST_1)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .build();*/
+                .build();
 
         LOG.info("1");
         LOG.info("s3Client: " + s3Client);
