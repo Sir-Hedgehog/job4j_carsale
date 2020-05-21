@@ -29,7 +29,6 @@ public class UploadS3Servlet extends HttpServlet {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 150; // 150MB
     private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHWIWJHZGF";
     private static final String AMAZON_SECRET_KEY = "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";
-    private static final String REGION = "eu-west-1";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -50,7 +49,7 @@ public class UploadS3Servlet extends HttpServlet {
 
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withRegion(Regions.fromName(REGION))
+                .withRegion(Regions.EU_WEST_1)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
 
