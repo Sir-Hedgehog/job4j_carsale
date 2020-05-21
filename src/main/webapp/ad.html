@@ -142,12 +142,12 @@
         }
 
         function uploadFile() {
-            /*let image = $('#image').prop('files')[0];
+            let image = $('#image').prop('files')[0];
             let formData = new FormData();
-            formData.append("image", image);*/
+            formData.append("image", image);
             let xhr = new XMLHttpRequest();
-            //xhr.open("POST", "/upload");
-            //xhr.send(formData);
+            xhr.open("POST", "/upload");
+            xhr.send(formData);
             xhr.onload = function() {
                 $('#selectedImage').attr('value', this.responseText);
             };
@@ -166,20 +166,15 @@
                 <label for="phone">Телефон в формате +7(___)___-__-__: </label>
                 <input type="text" class="form-control" id="phone" name="phone">
             </div>
-
-            <form action='/upload' method='post' enctype='multipart/form-data'>
-                <div class="form-group" id='photo'>
-                    <label for="image">Разместите фото автомобиля: </label>
-                    <input type="file" class="form-control" id="image" name="image"/>
-                </div>
-                <input id="paste" class="btn btn-default" type="submit" onclick="uploadFile()" value='Прикрепить'/>
-            </form>
-
+            <div class="form-group" id='photo'>
+                <label for="image">Разместите фото автомобиля: </label>
+                <input type="file" class="form-control" id="image" name="image"/>
+            </div>
+            <input id="paste" class="btn btn-default" type="submit" value='Прикрепить'/>
             <div class="form-group">
                 <label for="selectedImage">Выбранное фото: </label>
                 <input type="text" class="form-control" id="selectedImage" value="Фото не выбрано" readonly>
             </div>
-
             <div class="form-group">
                 <label for="model">Модель: </label>
                 <input type="text" class="form-control" id="model" name="model">

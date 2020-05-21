@@ -6,6 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.S3ClientOptions;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.apache.commons.fileupload.FileItem;
@@ -37,7 +38,6 @@ public class UploadS3Servlet extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.setHeader("Access-Control-Max-Age", "86400");
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(THRESHOLD_SIZE);
@@ -50,6 +50,7 @@ public class UploadS3Servlet extends HttpServlet {
 
         //AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
 
+        ObjectMetadata om = new ObjectMetadata();
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.fromName(REGION))
@@ -59,43 +60,42 @@ public class UploadS3Servlet extends HttpServlet {
         LOG.info("1");
         LOG.info("s3Client: " + s3Client);
 
-        if (isMultipart) {
-            try {
-                List<FileItem> items = upload.parseRequest(request);
-                File folder = new File("t7qeqayxsytc/public");
-                if (!folder.exists()) {
-                    folder.mkdirs();
-                }
+        try {
+            List<FileItem> items = upload.parseRequest(request);
+            File folder = new File("t7qeqayxsytc/public");
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
 
-                LOG.info("2");
+            LOG.info("2");
 
-                for (FileItem item : items) {
-                    if (!item.isFormField()) {
-                        //ObjectMetadata om = new ObjectMetadata();
-                        //om.setContentLength(item.getSize());
-                        nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
-                        try {
-                            File file = new File(folder + File.separator + nameOfFile);
-                            s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, file));
-                        } catch (AmazonServiceException ase) {
-                            LOG.error("Error:" + ase.getMessage());
-                            LOG.info("Caught an AmazonServiceException from PUT requests, rejected reasons:");
-                            LOG.info("Error Message:    " + ase.getMessage());
-                            LOG.info("HTTP Status Code: " + ase.getStatusCode());
-                            LOG.info("AWS Error Code:   " + ase.getErrorCode());
-                            LOG.info("Error Type:       " + ase.getErrorType());
-                            LOG.info("Request ID:       " + ase.getRequestId());
-                        }
+            for (FileItem item : items) {
+                if (!item.isFormField()) {
+                    //ObjectMetadata om = new ObjectMetadata();
+                    //om.setContentLength(item.getSize());
+                    nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
+                    try {
+                        File file = new File(folder + File.separator + nameOfFile);
+                        s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, file));
+                        s3Client.setEndpoint("https://cloud-cube-eu.s3.amazonaws.com/");
+                        s3Client.setS3ClientOptions(S3ClientOptions.builder().setPathStyleAccess(true).disableChunkedEncoding().build());
+                    } catch (AmazonServiceException ase) {
+                        LOG.error("Error:" + ase.getMessage());
+                        LOG.info("Caught an AmazonServiceException from PUT requests, rejected reasons:");
+                        LOG.info("Error Message:    " + ase.getMessage());
+                        LOG.info("HTTP Status Code: " + ase.getStatusCode());
+                        LOG.info("AWS Error Code:   " + ase.getErrorCode());
+                        LOG.info("Error Type:       " + ase.getErrorType());
+                        LOG.info("Request ID:       " + ase.getRequestId());
                     }
                 }
-
-                LOG.info("3");
-
-            } catch (Exception ex) {
-                LOG.error("error: " + ex.getMessage());
             }
-            response.getWriter().write(nameOfFile);
-        }
-    }
 
+            LOG.info("3");
+
+        } catch (Exception ex) {
+            LOG.error("error: " + ex.getMessage());
+        }
+        response.getWriter().write(nameOfFile);
+    }
 }
