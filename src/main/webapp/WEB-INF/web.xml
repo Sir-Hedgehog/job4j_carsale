@@ -18,8 +18,8 @@
         <servlet-class>ru.job4j.carsale.controllers.UploadS3Servlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DownloadServlet</servlet-name>
-        <servlet-class>ru.job4j.carsale.controllers.DownloadServlet</servlet-class>
+        <servlet-name>DownloadS3Servlet</servlet-name>
+        <servlet-class>ru.job4j.carsale.controllers.DownloadS3Servlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -39,7 +39,7 @@
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-name>DownloadS3Servlet</servlet-name>
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
 </web-app>

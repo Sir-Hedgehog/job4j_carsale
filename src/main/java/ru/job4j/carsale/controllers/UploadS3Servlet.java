@@ -1,9 +1,6 @@
 package ru.job4j.carsale.controllers;
 
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -18,15 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class UploadS3Servlet extends HttpServlet {
-    private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHQ22GGJXS";
-    private static final String AMAZON_SECRET_KEY = "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";
-    private static final String REGION = "eu-west-1";
     private static final String S3_BUCKET_NAME = "cloud-cube-eu";
-
     private static final Logger LOG = LoggerFactory.getLogger(UploadS3Servlet.class);
 
     @Override
@@ -35,48 +27,43 @@ public class UploadS3Servlet extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Max-Age", "86400");
-
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
         String nameOfFile = "";
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
 
-        LOG.info("awsCredentials: " + awsCredentials);
-
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withRegion(Regions.fromName(REGION))
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .build();
-
-        LOG.info("AU");
+        LOG.info("1");
         LOG.info("s3Client: " + s3Client);
 
         try {
             List<FileItem> items = upload.parseRequest(request);
-            File folder = new File("https://cloud-cube-eu.s3.amazonaws.com/t7qeqayxsytc/public");
+            File folder = new File("t7qeqayxsytc/public");
             if (!folder.exists()) {
                 folder.mkdirs();
             }
 
-            LOG.info("AU");
-            LOG.info("s3Client: " + s3Client);
+            LOG.info("2");
 
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     ObjectMetadata om = new ObjectMetadata();
                     om.setContentLength(item.getSize());
                     nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
-                    File targetFile = new File(folder + File.separator + nameOfFile);
                     try {
                         s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, item.getInputStream(), om));
                     } catch (AmazonServiceException ase) {
                         LOG.error("Error:" + ase.getMessage());
+                        LOG.info("Caught an AmazonServiceException from PUT requests, rejected reasons:");
+                        LOG.info("Error Message:    " + ase.getMessage());
+                        LOG.info("HTTP Status Code: " + ase.getStatusCode());
+                        LOG.info("AWS Error Code:   " + ase.getErrorCode());
+                        LOG.info("Error Type:       " + ase.getErrorType());
+                        LOG.info("Request ID:       " + ase.getRequestId());
                     }
                 }
             }
 
-            LOG.info("AU");
-            LOG.info("s3Client: " + s3Client);
+            LOG.info("3");
 
         } catch (Exception ex) {
             LOG.error("error: " + ex.getMessage());
