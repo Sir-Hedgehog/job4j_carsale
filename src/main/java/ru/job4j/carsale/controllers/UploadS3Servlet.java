@@ -62,20 +62,21 @@ public class UploadS3Servlet extends HttpServlet {
         if (isMultipart) {
             try {
                 List<FileItem> items = upload.parseRequest(request);
-                /*File folder = new File("t7qeqayxsytc/public");
+                File folder = new File("t7qeqayxsytc/public");
                 if (!folder.exists()) {
                     folder.mkdirs();
-                }*/
+                }
 
                 LOG.info("2");
 
                 for (FileItem item : items) {
                     if (!item.isFormField()) {
-                        ObjectMetadata om = new ObjectMetadata();
-                        om.setContentLength(item.getSize());
+                        //ObjectMetadata om = new ObjectMetadata();
+                        //om.setContentLength(item.getSize());
                         nameOfFile = item.getName().substring(item.getName().lastIndexOf("\\") + 1);
                         try {
-                            s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, item.getInputStream(), om));
+                            File file = new File(folder + File.separator + nameOfFile);
+                            s3Client.putObject(new PutObjectRequest(S3_BUCKET_NAME, nameOfFile, file));
                         } catch (AmazonServiceException ase) {
                             LOG.error("Error:" + ase.getMessage());
                             LOG.info("Caught an AmazonServiceException from PUT requests, rejected reasons:");
