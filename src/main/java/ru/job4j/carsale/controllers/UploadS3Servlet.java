@@ -61,10 +61,10 @@ public class UploadS3Servlet extends HttpServlet {
         if (isMultipart) {
             try {
                 List<FileItem> items = upload.parseRequest(request);
-                File folder = new File("t7qeqayxsytc\\public");
+                /*File folder = new File("t7qeqayxsytc/public");
                 if (!folder.exists()) {
                     folder.mkdirs();
-                }
+                }*/
 
                 LOG.info("2");
 
