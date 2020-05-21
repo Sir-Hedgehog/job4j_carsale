@@ -1,6 +1,9 @@
 package ru.job4j.carsale.controllers;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -24,6 +27,9 @@ public class UploadS3Servlet extends HttpServlet {
     private static final int THRESHOLD_SIZE = 1024 * 1024 * 3;  // 3MB
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 140; // 140MB
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 150; // 150MB
+    private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHWIWJHZGF";
+    private static final String AMAZON_SECRET_KEY = "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";
+    private static final String REGION = "eu-west-1";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -41,7 +47,12 @@ public class UploadS3Servlet extends HttpServlet {
         upload.setSizeMax(MAX_REQUEST_SIZE);
 
         String nameOfFile = "";
-        AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
+
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                .withRegion(Regions.fromName(REGION))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .build();
 
         LOG.info("1");
         LOG.info("s3Client: " + s3Client);
