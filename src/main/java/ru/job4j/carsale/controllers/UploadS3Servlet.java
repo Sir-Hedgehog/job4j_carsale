@@ -32,10 +32,10 @@ public class UploadS3Servlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        /*response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        response.setHeader("Access-Control-Max-Age", "86400");*/
+        response.setHeader("Access-Control-Max-Age", "86400");
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
