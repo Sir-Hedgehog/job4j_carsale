@@ -1,5 +1,8 @@
 package ru.job4j.carsale.controllers;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -16,7 +19,9 @@ import java.io.*;
  */
 
 public class DownloadS3Servlet extends HttpServlet {
-
+    private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHWIWJHZGF";
+    private static final String AMAZON_SECRET_KEY = "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";
+    private static final String REGION = "eu-west-1";
     private static final String S3_BUCKET_NAME = "cloud-cube-eu/t7qeqayxsytc/public/autos";
 
     /**
@@ -27,7 +32,14 @@ public class DownloadS3Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                .withRegion(Regions.fromName(REGION))
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .build();
+
+        //AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
+
         String name = request.getParameter("name");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("name=" + name);
