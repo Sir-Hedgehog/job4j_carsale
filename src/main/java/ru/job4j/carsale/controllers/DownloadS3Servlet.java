@@ -17,7 +17,7 @@ import java.io.*;
 
 public class DownloadS3Servlet extends HttpServlet {
 
-    private static final String S3_BUCKET_NAME = "cloud-cube-eu";
+    private static final String S3_BUCKET_NAME = "cloud-cube-eu/t7qeqayxsytc/public/autos";
 
     /**
      * Метод отображает фото продаваемого автомобиля
@@ -33,10 +33,10 @@ public class DownloadS3Servlet extends HttpServlet {
         response.setContentType("name=" + name);
         response.setContentType("image/jpg");
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        /*response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Max-Age", "86400");
+        response.setHeader("Access-Control-Max-Age", "86400");*/
 
         response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
         S3Object object = s3Client.getObject(new GetObjectRequest(S3_BUCKET_NAME, name));
