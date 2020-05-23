@@ -16,7 +16,7 @@ import java.io.IOException;
 public class DownloadServlet extends HttpServlet {
 
     /**
-     * Метод отображает фото продаваемого автомобиля
+     * Метод отображает фото продаваемого автомобиля из диска
      * @param request  - запрос серверу
      * @param response - ответ сервера
      */

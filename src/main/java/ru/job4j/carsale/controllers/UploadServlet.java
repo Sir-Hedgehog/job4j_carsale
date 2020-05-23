@@ -23,8 +23,8 @@ import java.util.List;
 public class UploadServlet extends HttpServlet {
 
     /**
-     * Метод сохраняет в темповую папку сохраненное фото автомобиля из нового объявления
-     * @param request  - запрос серверу
+     * Метод сохраняет в темповую папку диска сохраненное фото автомобиля из нового объявления
+     * @param request - запрос серверу
      * @param response - ответ сервера
      */
 

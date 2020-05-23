@@ -15,7 +15,7 @@ import java.io.*;
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
  * @version 1.0
- * @since 28.04.2020
+ * @since 22.05.2020
  */
 
 public class DownloadS3Servlet extends HttpServlet {
@@ -25,32 +25,23 @@ public class DownloadS3Servlet extends HttpServlet {
     private static final String S3_BUCKET_NAME = "cloud-cube-eu/t7qeqayxsytc/public/autos";
 
     /**
-     * Метод отображает фото продаваемого автомобиля
+     * Метод отображает фото продаваемого автомобиля, полученное из хранилища aws s3 (amazon)
      * @param request  - запрос серверу
      * @param response - ответ сервера
      */
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        String name = request.getParameter("name");
+        response.setContentType("name=" + name);
+        response.setContentType("image/jpg");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.fromName(REGION))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
-
-        //AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
-
-        String name = request.getParameter("name");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("name=" + name);
-        response.setContentType("image/jpg");
-
-        /*response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Max-Age", "86400");*/
-
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
         S3Object object = s3Client.getObject(new GetObjectRequest(S3_BUCKET_NAME, name));
         try (InputStream reader = object.getObjectContent()) {
             response.getOutputStream().write(reader.readAllBytes());

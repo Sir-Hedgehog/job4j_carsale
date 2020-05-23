@@ -41,6 +41,12 @@
         }
     </style>
     <script>
+
+        /**
+         * Метод проверяет строки, обязательные для заполнения пользователем
+         * @returns result - успешность заполнения
+         */
+
         function validate() {
             let result = false;
             let name = $('#name').val();
@@ -88,6 +94,10 @@
             }
             return result;
         }
+
+        /**
+         * Метод передает введенные пользователем данные контроллеру по AddCarServlet
+         */
 
         function addCar() {
             if (validate()) {
@@ -141,16 +151,44 @@
             }
         }
 
+        /**
+         * Метод загружает фотографию автомобиля
+         */
+
         function uploadFile() {
             let image = $('#image').prop('files')[0];
             let formData = new FormData();
             formData.append("image", image);
+            this.learnSizeOfFile(formData);
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "/upload");
             xhr.send(formData);
-            xhr.onload = function() {
+            xhr.onload = function () {
                 $('#selectedImage').attr('value', this.responseText);
-            };
+            }
+        }
+
+        /**
+         * Метод проверяет размер выбранной пользователем фотографии на превышение максимального лимита
+         * @param formData - файл
+         */
+
+        function learnSizeOfFile(formData) {
+            let size = 0;
+            for (let pair of formData.entries()) {
+                if (pair[1] instanceof Blob)
+                    size += pair[1].size;
+                else
+                    size += pair[1].length;
+            }
+            if (size > 512000) {
+                swal.fire({
+                    icon: "warning",
+                    title: "Внимание!",
+                    text: "Превышен максимальный лимит по размеру фотографии, объем которой должен составлять не более 512кБ! Выберите другое фото.",
+                    confirmButtonColor: '#23a843',
+                });
+            }
         }
     </script>
     <body>

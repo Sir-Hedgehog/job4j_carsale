@@ -6,8 +6,6 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.S3ClientOptions;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.apache.commons.fileupload.FileItem;
@@ -22,49 +20,41 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
+ * @version 1.0
+ * @since 23.05.2020
+ */
+
 public class UploadS3Servlet extends HttpServlet {
     private static final String S3_BUCKET_NAME = "cloud-cube-eu/t7qeqayxsytc/public/autos";
     private static final Logger LOG = LoggerFactory.getLogger(UploadS3Servlet.class);
-    private static final long serialVersionUID = -7720246048637220075L;
-    private static final int THRESHOLD_SIZE = 1024 * 1024 * 3;  // 3MB
-    private static final int MAX_FILE_SIZE = 1024 * 1024 * 140; // 140MB
-    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 150; // 150MB
+    private static final int MAX_FILE_SIZE = 1024 * 500;
     private static final String AMAZON_ACCESS_KEY = "AKIA37SVVXBHWIWJHZGF";
     private static final String AMAZON_SECRET_KEY = "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";
     private static final String REGION = "eu-west-1";
 
+    /**
+     * Метод добавляет фото автомобиля в хранилище aws s3 (amazon) и отдает в ответ имя файла
+     * @param request - запрос серверу
+     * @param response - ответ сервера
+     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        response.setHeader("Access-Control-Max-Age", "86400");
-
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
         DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setSizeThreshold(THRESHOLD_SIZE);
-
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(MAX_FILE_SIZE);
-        upload.setSizeMax(MAX_REQUEST_SIZE);
-
-        String nameOfFile = "";
-
-        //AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
-
+        String nameOfFile = "Фото не выбрано";
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.fromName(REGION))
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
-
-        LOG.info("1");
-        LOG.info("s3Client: " + s3Client);
-
         try {
             List<FileItem> items = upload.parseRequest(request);
-
-            LOG.info("2");
-
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     ObjectMetadata om = new ObjectMetadata();
@@ -77,9 +67,6 @@ public class UploadS3Servlet extends HttpServlet {
                     }
                 }
             }
-
-            LOG.info("3");
-
         } catch (FileUploadException ex) {
             LOG.error("FileUploadException: " + ex.getMessage());
         }

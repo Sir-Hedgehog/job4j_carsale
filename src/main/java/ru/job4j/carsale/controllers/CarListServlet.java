@@ -1,8 +1,6 @@
 package ru.job4j.carsale.controllers;
 
 import com.google.gson.Gson;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.job4j.carsale.models.Car;
 import ru.job4j.carsale.models.ValidateService;
 import ru.job4j.carsale.models.Validation;
@@ -21,7 +19,6 @@ import java.util.List;
  */
 
 public class CarListServlet extends HttpServlet {
-    private static final Logger LOG = LoggerFactory.getLogger(CarListServlet.class);
     private final Validation validationDatabase = ValidateService.getInstance();
 
     /**

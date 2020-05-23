@@ -32,6 +32,8 @@ IV. This ad is actual, isn't it? Update status of ad.
 ## Used technologies
 * Java;
 * Commons-fileupload;
+* Log4j;
+* Amazon AWS;
 * Mockito;
 * JUnit;
 * Hamcrest;
