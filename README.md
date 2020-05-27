@@ -7,8 +7,10 @@ This webapp realizes car sales area with using of principle of MVC (model-view-c
 ## Basic scheme of app
 ![MVC](https://www.researchgate.net/profile/Samir_Mbarki/publication/267333148/figure/fig2/AS:295594594717708@1447486651773/Principle-of-operation-of-the-Struts-framework.png)
 
-## How to use
-This app can be pushed and used with any development environment that supports Java (IntellijIDEA, Eclipse, others) and, don't forget, server container (tomcat, glassfish, others).
+## Use cases
+1) This app can be pushed and used with any development environment that supports Java (IntellijIDEA, Eclipse, others) and, don't forget, server container (tomcat, glassfish, others).
+
+2) Follow the link [Car for Sale](https://car4sale.herokuapp.com "car4sale") and enjoy to use app!
 
 ## Steps of work
 After you pushed webapp, you can use it. Steps of work are next:
@@ -30,7 +32,7 @@ IV. This ad is actual, isn't it? Update status of ad.
 ![Status](https://github.com/Sir-Hedgehog/job4j_carsale/blob/master/src/main/resources/screenshots/status.PNG)
 
 ## Used technologies
-* Java;
+* Java Core;
 * Commons-fileupload;
 * Log4j;
 * Amazon AWS;
