@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
@@ -10,15 +9,29 @@
         <title>Продажа авто</title>
         <style>
             html {
-                width: 50%;
+                width: 100%;
                 min-height: 100vh;
+                background-color: white;
+                background-image:
+                        linear-gradient(45deg, #cccccc 25%, transparent 25%, transparent 75%, #cccccc 75%),
+                        linear-gradient(45deg, #cccccc 25%, transparent 25%, transparent 75%, #cccccc 75%);
+                background-position: 0 0, 8px 8px;
+                background-size: 16px 16px;
+            }
+
+            body {
+                width: 50%;
                 border-left: 1px solid #333300;
                 border-right: 1px solid #333300;
             }
 
-            html, #header {
+            body, #header {
                 margin-left: auto;
                 margin-right: auto;
+            }
+
+            .container {
+                overflow: auto;
             }
 
             #header {
@@ -28,7 +41,7 @@
             }
 
             nav {
-                padding: 10px 15px 0 10px;
+                padding: 10px 15px 0 15px;
                 display: flex;
                 justify-content: space-between;
                 background-color: #e9e8e8;
@@ -37,7 +50,7 @@
             }
 
             nav label select.form-control {
-                width: 220px;
+                width: 100%;
             }
 
             section {
@@ -77,6 +90,29 @@
 
             .tableRow {
                 display: table-row;
+            }
+
+            @media screen and (max-width: 1570px) {
+                body {
+                    width: 75%;
+                }
+            }
+
+            @media screen and (max-width: 1052px) {
+                body {
+                    width: 100%;
+                }
+            }
+
+            @media screen and (max-width: 995px) {
+                img {
+                    height: 250px;
+                    width: 375px;
+                }
+
+                .description {
+                    line-height: 1;
+                }
             }
         </style>
         <!--suppress EqualityComparisonWithCoercionJS -->
@@ -216,7 +252,7 @@
             }
         </script>
     </head>
-    <body onload="getCars()">
+    <body id="cars" onload="getCars()">
         <div class="container">
             <div class="row pt-3" id="blockOfHeader">
                 <h3 id="header">Список машин пуст</h3>

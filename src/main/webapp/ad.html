@@ -11,15 +11,29 @@
     </head>
     <style>
         html {
-            width: 50%;
+            width: 100%;
             min-height: 100vh;
+            background-color: white;
+            background-image:
+                    linear-gradient(45deg, #cccccc 25%, transparent 25%, transparent 75%, #cccccc 75%),
+                    linear-gradient(45deg, #cccccc 25%, transparent 25%, transparent 75%, #cccccc 75%);
+            background-position: 0 0, 8px 8px;
+            background-size: 16px 16px;
+        }
+
+        body {
+            width: 50%;
             border-left: 1px solid #333300;
             border-right: 1px solid #333300;
         }
 
-        html, #header {
+        body, #header {
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .container {
+            overflow: auto;
         }
 
         #header {
@@ -38,6 +52,38 @@
 
         #placeAd {
             margin: 0 16px 20px 0;
+        }
+
+        @media screen and (max-width: 1675px) {
+            #photo {
+                width: 82%;
+            }
+        }
+
+        @media screen and (max-width: 1410px) {
+            #photo {
+                width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 1300px) {
+            body {
+                width: 70%;
+            }
+
+            #photo {
+                width: 78%;
+            }
+        }
+
+        @media screen and (max-width: 985px) {
+            body {
+                width: 100%;
+            }
+
+            #photo {
+                width: 74%;
+            }
         }
     </style>
     <script>
