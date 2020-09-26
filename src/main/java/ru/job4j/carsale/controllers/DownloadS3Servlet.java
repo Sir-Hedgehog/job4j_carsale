@@ -7,6 +7,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +17,8 @@ import java.io.*;
 
 /**
  * @author Sir-Hedgehog (mailto:quaresma_08@mail.ru)
- * @version 1.0
- * @since 22.05.2020
+ * @version 2.0
+ * @since 26.09.2020
  */
 
 public class DownloadS3Servlet extends HttpServlet {
@@ -23,6 +26,7 @@ public class DownloadS3Servlet extends HttpServlet {
     private static final String AMAZON_SECRET_KEY = "i58xLKTcDffJxbMSdOIRVRbEM5thPoTTS5yHmQCi";
     private static final String REGION = "eu-west-1";
     private static final String S3_BUCKET_NAME = "cloud-cube-eu/t7qeqayxsytc/public/autos";
+    private static final Logger LOG = LoggerFactory.getLogger(DownloadS3Servlet.class);
 
     /**
      * Метод отображает фото продаваемого автомобиля, полученное из хранилища aws s3 (amazon)
@@ -34,6 +38,10 @@ public class DownloadS3Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
+        LOG.info("NAME OF FILE: " + name);
+        if (name.equals("Фото не найдено")) {
+            name = "no_image.jpg";
+        }
         response.setContentType("name=" + name);
         response.setContentType("image/jpg");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");

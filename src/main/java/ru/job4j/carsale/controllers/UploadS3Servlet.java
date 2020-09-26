@@ -47,7 +47,7 @@ public class UploadS3Servlet extends HttpServlet {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(MAX_FILE_SIZE);
-        String nameOfFile = "no_image.jpg";
+        String nameOfFile = "Фото не найдено";
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(AMAZON_ACCESS_KEY, AMAZON_SECRET_KEY);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.fromName(REGION))
