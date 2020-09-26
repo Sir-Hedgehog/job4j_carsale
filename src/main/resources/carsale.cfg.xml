@@ -2,9 +2,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name = "hibernate.connection.url">jdbc:postgresql://ec2-54-75-244-161.eu-west-1.compute.amazonaws.com:5432/d2jbaehsetoke8?sslmode=require&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
-        <property name = "hibernate.connection.username">vtvzihclsxgdvo</property>
-        <property name = "hibernate.connection.password">cfcc814180faab668b4880db13e273ffa165b2aeceb39d12a8bddbae60ac8864</property>
+        <property name = "hibernate.connection.url">jdbc:postgres://mrmizdmeeukevr:fdb94d1f44aa887a335c0ad6aa8da545e7adcf08a94b9e88a21b59b11c68d0d7@ec2-46-137-123-136.eu-west-1.compute.amazonaws.com:5432/d7519n0npnp6f3?sslmode=require&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
+        <property name = "hibernate.connection.username">mrmizdmeeukevr</property>
+        <property name = "hibernate.connection.password">fdb94d1f44aa887a335c0ad6aa8da545e7adcf08a94b9e88a21b59b11c68d0d7</property>
         <property name = "hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
         <property name = "show_sql">true</property>
         <property name = "format_sql">true</property>
