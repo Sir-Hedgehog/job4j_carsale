@@ -5,7 +5,7 @@
 This webapp realizes car sales area with using of principle of MVC (model-view-controller).
 
 ## Basic scheme of app
-![MVC](https://www.researchgate.net/profile/Samir_Mbarki/publication/267333148/figure/fig2/AS:295594594717708@1447486651773/Principle-of-operation-of-the-Struts-framework.png)
+![MVC](https://javabeat.net/wp-content/uploads/2014/02/model-1-arch.jpg)
 
 ## Use cases
 1) This app can be pushed and used with any development environment that supports Java (IntellijIDEA, Eclipse, others) and, don't forget, server container (tomcat, glassfish, others).
@@ -36,9 +36,6 @@ IV. This ad is actual, isn't it? Update status of ad.
 * Commons-fileupload;
 * Log4j;
 * Amazon AWS;
-* Mockito;
-* JUnit;
-* Hamcrest;
 * PostgreSQL;
 * JDBC;
 * Hibernate;
