@@ -38,18 +38,9 @@ public class DownloadS3Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
-
-        LOG.info("NAME OF FILE 1 : " + name);
-
         if (name.equals("Фото не выбрано")) {
-
-            LOG.info("NAME OF FILE 2 : " + name);
-
             name = "no_image.jpg";
         }
-
-        LOG.info("NAME OF FILE 3 : " + name);
-
         response.setContentType("name=" + name);
         response.setContentType("image/jpg");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
