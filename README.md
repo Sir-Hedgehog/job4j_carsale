@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Sir-Hedgehog/job4j_carsale.svg?branch=master)](https://travis-ci.org/Sir-Hedgehog/job4j_carsale)
+[![Build Status](https://travis-ci.com/Sir-Hedgehog/job4j_carsale.svg?branch=master)](https://travis-ci.org/Sir-Hedgehog/job4j_carsale)
 
 # Web application job4j_carsale
 
